@@ -1,0 +1,32 @@
+#Nb {
+    background: #063932;
+    border-color: black;
+
+}
+
+.sticky-note {
+    background: url(../../assets/pictures/stickynote.png);
+    height: 25%;
+    width: 25%;
+    background-size: 180%;
+    position: absolute;
+    background-repeat: no-repeat;
+
+    cursor: grab;
+    transition: transform 0.2s ease;
+    /* animation: sway 6s ease-in-out infinite; */
+}
+
+@keyframes sway {
+    0% {
+        transform: rotate(-2deg);
+    }
+
+    50% {
+        transform: rotate(2deg);
+    }
+
+    100% {
+        transform: rotate(-2deg);
+    }
+}
