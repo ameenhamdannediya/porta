@@ -7,7 +7,7 @@
     position: absolute;
     border: none;
 
-     transform-origin: 50% 0%;
+    transform-origin: 50% 0%;
     will-change: transform;
     transition: transform 0.3s ease-out;
     pointer-events: auto;
@@ -42,4 +42,18 @@
     inset: 0;
     border-radius: 2px;
     pointer-events: none;
+}
+.polaroid{
+    position: absolute;
+    width: 100px;
+   
+
+
+}
+.polaroid:hover{
+    filter: drop-shadow(0 8px 6px rgba(0,0,0,0.25));
+    transition: transform 0.3s ease-out;
+    transform: scale(1.1);
+   
+
 }
