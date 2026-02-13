@@ -3,30 +3,43 @@
     border-color: black;
 
 }
-
-.sticky-note {
-    background: url(../../assets/pictures/stickynote.png);
-    height: 25%;
-    width: 25%;
-    background-size: 180%;
+.sticky-note-img{
     position: absolute;
-    background-repeat: no-repeat;
+    border: none;
 
-    cursor: grab;
-    transition: transform 0.2s ease;
-    /* animation: sway 6s ease-in-out infinite; */
+     transform-origin: 50% 0%;
+    will-change: transform;
+    transition: transform 0.3s ease-out;
+    pointer-events: auto;
+    transform-origin: top center;
+    
+    animation: wind 6s ease-in-out infinite;
+
+    
+}
+@keyframes wind {
+    0%   { transform: rotate(-1.2deg); }
+    50%  { transform: rotate(1.5deg); }
+    100% { transform: rotate(-1.2deg); }
+}
+@keyframes wobble {
+    0%   { transform: rotate(0deg); }
+    25%  { transform: rotate(3deg); }
+    50%  { transform: rotate(-3deg); }
+    75%  { transform: rotate(2deg); }
+    100% { transform: rotate(0deg); }
 }
 
-@keyframes sway {
-    0% {
-        transform: rotate(-2deg);
-    }
+.sticky-note-img:hover {
+    animation: wobble 0.6s ease-in-out;
+    filter: drop-shadow(0 8px 6px rgba(0,0,0,0.25));
+}
 
-    50% {
-        transform: rotate(2deg);
-    }
 
-    100% {
-        transform: rotate(-2deg);
-    }
+.sticky-note-img::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 2px;
+    pointer-events: none;
 }

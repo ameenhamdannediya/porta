@@ -1,36 +1,58 @@
 import './NoticeBoard.css'
 import { useEffect, useRef, useState, useMemo } from 'react';
-import Nbref from '../../assets/pictures/noticeboardjpg.jpg'
+import bg1 from '../../assets/pictures/stickynote1.png'
+import bg2 from '../../assets/pictures/stickynote2.png'
+import bg3 from '../../assets/pictures/stickynote3.png'
+import bg4 from '../../assets/pictures/stickynote4.png'
+import bg5 from '../../assets/pictures/stickynote5.png'
+
 
 
 function Sticknotes(props) {
 
+    const pxToPercent = (px) => (px / window.innerWidth) * 100;
+    const seeded = (seed) => {
+    const x = Math.sin(seed) * 10000;
+    return x - Math.floor(x); // 0 → 1
+};
+
+    console.log()
+    
     var noteNum = props.noteNum 
     const count = Math.floor(noteNum );
+    const bgImages = [bg1, bg2, bg3, bg4, bg5];
 
     const notes = useMemo(() => {
-        return Array.from({ length: count }).map(() => ({
-            x: Math.random() * 70 + 5,
-            y: Math.random() * 70 + 5,
-            bgX: Math.random() * 100,
-            bgY: Math.random() * 100,
-            rotate: Math.random() * 10 - 5
+        const radius = pxToPercent(props.radius);
+        const angle =(i)=>{ return seeded(i * 10) * Math.PI * 2}
+        const dist = (i)=>{ return Math.pow(seeded(i * 20), 0.6) * radius}
+
+        return Array.from({ length: count }).map((_, i) => ({ 
+            
+            img : bgImages[Math.floor(seeded(i) * bgImages.length)],
+            x: props.coordinates.x + Math.cos(angle(i)) * ( dist(i) ),
+            y: props.coordinates.y + Math.sin(angle(i)) * ( dist(i) ),
+            rotate: seeded(i* 30 + count) * 10 - 5,
+            size : 10 + seeded(i* 40 + count)*10 ,
         }));
     }, [count]);
 
     return (
         <>
             {notes.map((n, i) => (
-                <div
-                    key={i}
-                    className="sticky-note"
+                
+                <img key={i} 
+                    className="sticky-note-img"
+                    src={n.img}
                     style={{
                         left: `${n.x}%`,
                         top: `${n.y}%`,
-                        backgroundPosition: `${n.bgX}% ${n.bgY}%`,
-                        transform: `rotate(${n.rotate}deg)`
+                        transform: `rotate(${n.rotate}deg)`,
+                        height : n.size + '%'
                     }}
-                />
+
+                    >
+                </img>
             ))}
         </>
     );
@@ -105,7 +127,7 @@ function NoticeBoard() {
                 // onMouseUp={onMouseUp}
                 // onMouseLeave={onMouseUp}
                 // onWheel={onWheel}>*/}
-                <Sticknotes noteNum={20} />
+                <Sticknotes noteNum={10} radius={200} coordinates={{ x: 50, y: 30 }}/>
 
 
             </div>
